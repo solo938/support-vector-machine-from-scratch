@@ -88,8 +88,38 @@ def svm_objective(x, y, params, reg_lambda):
 
     return mean_hinge + regularization
 
-# Step 7 - compute_gradients (not yet solved)
-# TODO: implement
+# Step 7 - compute_gradients
+import numpy as np
+
+def compute_gradients(x, y, params, reg_lambda):
+    """Return {'dw': ndarray shape (n_features,), 'db': float} = gradient of svm_objective."""
+
+    w = params['w']
+    b = params['b']
+
+    scores = x @ w + b
+
+    margin_violations = y * scores < 1
+
+    dw = np.zeros_like(w, dtype=float)
+    db = 0.0
+
+    if np.any(margin_violations):
+        dw = np.sum(
+            -y[margin_violations, None] * x[margin_violations],
+            axis=0
+        ) / len(y)
+
+        db = np.sum(
+            -y[margin_violations]
+        ) / len(y)
+
+    dw = dw + 2 * reg_lambda * w
+
+    return {
+        'dw': dw,
+        'db': db
+    }
 
 # Step 8 - apply_update (not yet solved)
 # TODO: implement
