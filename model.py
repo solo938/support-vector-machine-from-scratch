@@ -121,8 +121,19 @@ def compute_gradients(x, y, params, reg_lambda):
         'db': db
     }
 
-# Step 8 - apply_update (not yet solved)
-# TODO: implement
+# Step 8 - apply_update
+def apply_update(params, grads, learning_rate):
+    # TODO: return a new params dict after one gradient-descent step on 'w' and 'b'.
+    w = params['w']
+    b = params['b']
+
+    new_w = w - learning_rate * grads['dw']
+    new_b = b - learning_rate * grads['db']
+
+    return {
+        'w' : new_w,
+        'b' : new_b
+    }
 
 # Step 9 - train_svm (not yet solved)
 # TODO: implement
